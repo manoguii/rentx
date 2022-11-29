@@ -1,10 +1,5 @@
 import { Category } from "../model/Category";
-
-// DTO => data transfer object
-interface ICreateCategoryDTO {
-  name: string;
-  description: string;
-}
+import { ICreateCategoryDTO } from "./ICategoriesRepository";
 
 class CategoryRepository {
   private categories: Category[];
@@ -31,9 +26,7 @@ class CategoryRepository {
   }
 
   findByName(name: string): Category {
-    const category = this.categories.find((category) => {
-      return category.name === name;
-    });
+    const category = this.categories.find((category) => category.name === name);
 
     return category;
   }
