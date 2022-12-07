@@ -2,6 +2,7 @@ import { Router } from "express";
 import multer from "multer";
 
 import uploadConfig from "../config/upload";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { UserController } from "../modules/accounts/useCases/CreateUser/UserController";
 import { UpdateUserAvatarController } from "../modules/accounts/useCases/UpdateUserAvatar/UpdateUserAvatarController";
 
@@ -16,6 +17,7 @@ usersRouter.post("/", createUserController.handle);
 
 usersRouter.patch(
   "/avatar",
+  ensureAuthenticated,
   uploadAvatar.single("avatar"),
   updateUserAvatarController.handle
 );
