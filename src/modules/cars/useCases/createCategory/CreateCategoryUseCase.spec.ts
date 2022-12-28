@@ -1,5 +1,4 @@
-import { AppError } from "src/errors/AppError";
-
+import { AppError } from "../../../../errors/AppError";
 import { CategoriesRepositoryInMemory } from "../../repositories/in-memory/CategoriesRepositoryInMemory";
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
@@ -14,7 +13,7 @@ describe("Create Category", () => {
     );
   });
 
-  it("should create a new category", async () => {
+  it("should be able to create a new category", async () => {
     expect(async () => {
       const category = {
         name: "Category Test",
