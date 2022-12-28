@@ -9,13 +9,13 @@
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
       "@errors/*": ["errors/*"],
-      "@utils/*": ["utils/*"],
+      "@utils/*": ["utils/*"]
     },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   }
 }

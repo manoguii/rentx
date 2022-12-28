@@ -1,13 +1,13 @@
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
-import "./database";
+import "../database";
 
-import "./shared/container";
+import "../../container";
 
-import { AppError } from "./errors/AppError";
+import { AppError } from "../../../errors/AppError";
+import swaggerFile from "../../../swagger.json";
 import { router } from "./routes";
-import swaggerFile from "./swagger.json";
 
 const app = express();
 
@@ -18,6 +18,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(router);
 
 app.use(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (err: Error, request: Request, response: Response, next: NextFunction) => {
     if (err instanceof AppError) {
       response.status(err.statusCode).json({ message: err.message });
