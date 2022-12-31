@@ -40,7 +40,11 @@ class CarsRepository implements ICarsRepository {
     return car;
   }
 
-  async findAvailable(brand?: string, category_id?: string, name?: string): Promise<Car[]> {
+  async findAvailable(
+    brand?: string,
+    category_id?: string,
+    name?: string
+  ): Promise<Car[]> {
     const carsQuery = this.repository
       .createQueryBuilder("c")
       .where("available = :available", { available: true });
@@ -60,6 +64,10 @@ class CarsRepository implements ICarsRepository {
     const cars = await carsQuery.getMany();
 
     return cars;
+  }
+
+  findById(id: string): Promise<Car> {
+    throw new Error("Method not implemented.");
   }
 }
 

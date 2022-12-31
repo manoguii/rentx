@@ -9,7 +9,10 @@ import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
 import { ISpecificationRepository } from "@modules/cars/repositories/ISpecificationRepository";
 
-container.registerSingleton<ICategoriesRepository>("CategoriesRepository", CategoriesRepository);
+container.registerSingleton<ICategoriesRepository>(
+  "CategoriesRepository",
+  CategoriesRepository
+);
 
 container.registerSingleton<ISpecificationRepository>(
   "SpecificationRepository",
