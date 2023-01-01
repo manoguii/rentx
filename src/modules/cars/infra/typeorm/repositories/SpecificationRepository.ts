@@ -25,13 +25,15 @@ class SpecificationRepository implements ISpecificationRepository {
   }
 
   async findByName(name: string): Promise<Specification> {
-    const specification = this.repository.findOne({ name });
+    const specification = await this.repository.findOne({ name });
 
     return specification;
   }
 
   async findByIds(ids: string[]): Promise<Specification[]> {
-    throw new Error("Method not implemented.");
+    const specifications = await this.repository.findByIds(ids);
+
+    return specifications;
   }
 }
 
