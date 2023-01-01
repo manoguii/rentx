@@ -11,7 +11,7 @@ import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 const categoriesRoutes = Router();
 
 const upload = multer({
-  dest: "./tmp",
+  dest: "./tmp/categories",
 });
 
 const createCategoryController = new CreateCategoryController();
