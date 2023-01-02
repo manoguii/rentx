@@ -1,8 +1,12 @@
 // import { inject, injectable } from "tsyringe";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 import { AppError } from "@errors/AppError";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
+
+dayjs.extend(utc);
 
 interface IRequest {
   user_id: string;
@@ -18,6 +22,8 @@ class CreateRentalUseCase {
   ) {}
 
   async execute({ car_id, user_id, expected_return_date }: IRequest): Promise<Rental> {
+    const minimumHour = 24;
+
     // Não deve ser possível cadastrar um novo aluguel caso já *** exista um aberto para o mesmo carro
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(car_id);
 
@@ -33,6 +39,15 @@ class CreateRentalUseCase {
     }
 
     // O aluguel deve ter duração mínima de 24 horas.
+    const expectedReturnDateFormat = dayjs(expected_return_date).utc().local().format();
+
+    const dateNow = dayjs().utc().local().format();
+
+    const compare = dayjs(expectedReturnDateFormat).diff(dateNow, "hours");
+
+    if (compare < minimumHour) {
+      throw new AppError("Return date must be at least 24 hours");
+    }
 
     const rental = await this.rentalsRepository.create({
       car_id,
