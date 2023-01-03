@@ -28,7 +28,7 @@ describe("Create category controller", () => {
     await connection.close();
   });
 
-  it("should be able to create a new category", async () => {
+  it("should be able to list all available categories", async () => {
     const responseToken = await agent(app).post("/sessions").send({
       email: "admin@rentx.com",
       password: "admin",
@@ -36,7 +36,7 @@ describe("Create category controller", () => {
 
     const { token } = responseToken.body;
 
-    const response = await agent(app)
+    await agent(app)
       .post("/categories")
       .send({
         name: "category supertest",
@@ -46,27 +46,13 @@ describe("Create category controller", () => {
         Authorization: `Bearer ${token}`,
       });
 
-    expect(response.status).toBe(201);
-  });
+    const response = await agent(app).get("/categories");
 
-  it("should not be able to create a new category whit same name exists", async () => {
-    const responseToken = await agent(app).post("/sessions").send({
-      email: "admin@rentx.com",
-      password: "admin",
-    });
+    console.log(response.body);
 
-    const { token } = responseToken.body;
-
-    const response = await agent(app)
-      .post("/categories")
-      .send({
-        name: "category supertest",
-        description: "Supertest",
-      })
-      .set({
-        Authorization: `Bearer ${token}`,
-      });
-
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(1);
+    expect(response.body[0]).toHaveProperty("id");
+    expect(response.body[0].name).toEqual("category supertest");
   });
 });
