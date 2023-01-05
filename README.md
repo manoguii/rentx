@@ -63,16 +63,16 @@
 # Devolução de carro
 
 **RF**
-- [] Deve ser possível realizar a devolução de um carro
+- [x] Deve ser possível realizar a devolução de um carro
 
 **RN**
-- [] Se o carro for devolvido com menos de 24 horas, deverá *** ser cobrado diária completa.
-- [] Ao realizar a devolução, o carro deverá ser liberado para *** outro aluguel.
-- [] Ao realizar a devolução, o usuário deverá ser liberado *** para outro aluguel.
-- [] Ao realizar a devolução, deverá ser calculado o total do *** aluguel.
-- [] Caso o horário de devolução seja superior ao horário *** previsto de entrega, deverá ser cobrado multa *** proporcional aos dias de atraso.
-- [] Caso haja multa, deverá ser somado ao total do aluguel.
-- [] O usuário deve estar logado na aplicação
+- [x] Se o carro for devolvido com menos de 24 horas, deverá *** ser cobrado diária completa.
+- [x] Ao realizar a devolução, o carro deverá ser liberado para *** outro aluguel.
+- [x] Ao realizar a devolução, o usuário deverá ser liberado *** para outro aluguel.
+- [x] Ao realizar a devolução, deverá ser calculado o total do *** aluguel.
+- [x] Caso o horário de devolução seja superior ao horário *** previsto de entrega, deverá ser cobrado multa *** proporcional aos dias de atraso.
+- [x] Caso haja multa, deverá ser somado ao total do aluguel.
+- [x] O usuário deve estar logado na aplicação
 
 
 # Listagem de Alugueis para usuário
