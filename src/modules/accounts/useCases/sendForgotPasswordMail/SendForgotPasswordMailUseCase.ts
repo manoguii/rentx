@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { resolve } from "path";
 import { inject, injectable } from "tsyringe";
 import { v4 as uuidV4 } from "uuid";
@@ -42,7 +43,7 @@ class SendForgotPasswordMailUseCase {
 
     const token = uuidV4();
 
-    const expires_date = this.dateProvider.addHours(3);
+    const expires_date = dayjs().add(3, "hours").toDate();
 
     await this.usersTokensRepository.create({
       refresh_token: token,
