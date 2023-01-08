@@ -4,7 +4,6 @@ tmp
 .env
 .eslintignore
 .editorconfig
-.eslintrc.json
 prettier.config.js
 tables.png
 yarn.lock
