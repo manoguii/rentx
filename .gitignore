@@ -2,3 +2,10 @@ node_modules
 tmp
 .vscode
 .env
+.eslintignore
+.editorconfig
+.eslintrc.json
+prettier.config.js
+tables.png
+yarn.lock
+yarn-error.log
