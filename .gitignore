@@ -1,10 +1,10 @@
+tmp/*
+coverage
 node_modules
 tmp
 .vscode
 .env
-.eslintignore
-.editorconfig
-prettier.config.js
-tables.png
-yarn.lock
 yarn-error.log
+!tmp/.gitkeep
+dist/
+ormconfig.json
