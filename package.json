@@ -11,6 +11,8 @@
     "seed:admin": "ts-node-dev src/shared/infra/database/admin/admin.ts"
   },
   "dependencies": {
+    "@sentry/node": "^7.29.0",
+    "@sentry/tracing": "^7.29.0",
     "aws-sdk": "^2.1290.0",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
