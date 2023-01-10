@@ -19,18 +19,18 @@ services:
     ports:
       - 6379:6379
 
-  app:
-    build: .
-    container_name: rentx
-    ports:
-      - 3333:3333
-      - 9229:9229
-    volumes:
-      - .:/usr/app
-    links:
-      - database
-    depends_on:
-      - database
+  # app:
+  #   build: .
+  #   container_name: rentx
+  #   ports:
+  #     - 3333:3333
+  #     - 9229:9229
+  #   volumes:
+  #     - .:/usr/app
+  #   links:
+  #     - database
+  #   depends_on:
+  #     - database
 
 
 volumes:
