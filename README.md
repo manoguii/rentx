@@ -2,9 +2,10 @@
 # create user
 # create category
 # create specification
-# create specification
 # create session
 # list categories
+
+--
 
 # Cadastro de carro
 

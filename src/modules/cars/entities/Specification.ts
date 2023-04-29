@@ -5,6 +5,7 @@ class Specification {
   name: string
   description: string
   created_at: Date
+  car_id: string | null
 
   constructor() {
     if (!this.id) {

@@ -32,6 +32,22 @@ class SpecificationRepositoryInMemory implements ISpecificationRepository {
 
     return allSpecifications
   }
+
+  async addSpecificationToCar(
+    car_id: string,
+    specification_id: string,
+  ): Promise<Specification> {
+    const specification = this.specifications.find(
+      (specification) => specification.id === specification_id,
+    )
+
+    const specificationWithCar = {
+      ...specification,
+      car_id,
+    }
+
+    return specificationWithCar
+  }
 }
 
 export { SpecificationRepositoryInMemory }

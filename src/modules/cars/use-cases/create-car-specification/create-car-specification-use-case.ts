@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@errors/AppError'
-import { Car } from '@modules/cars/entities/Car'
+import { Car, Specification } from '@prisma/client'
 import { ICarsRepository } from '@modules/cars/repositories/interface/ICarsRepository'
 import { ISpecificationRepository } from '@modules/cars/repositories/interface/ISpecificationRepository'
 
@@ -21,21 +21,35 @@ class CreateCarSpecificationUseCase {
     private specificationsRepository: ISpecificationRepository,
   ) {}
 
-  async execute({ car_id, specifications_id }: IRequest): Promise<Car> {
+  async execute({ car_id, specifications_id }: IRequest): Promise<
+    Car & {
+      Specification: Specification[]
+    }
+  > {
     const carExists = await this.carsRepository.findById(car_id)
 
     if (!carExists) {
       throw new AppError('Car does not exist !')
     }
 
-    const specifications = await this.specificationsRepository.findByIds(
-      specifications_id,
+    const specifications: Specification[] = []
+
+    specifications_id.forEach(async (id) => {
+      const specification =
+        await this.specificationsRepository.addSpecificationToCar(
+          carExists.id,
+          id,
+        )
+
+      specifications.push(specification)
+    })
+
+    const carUpdated = await this.carsRepository.createSpecifications(
+      carExists.id,
+      specifications,
     )
-    carExists.specifications = specifications
 
-    await this.carsRepository.create(carExists)
-
-    return carExists
+    return carUpdated
   }
 }
 

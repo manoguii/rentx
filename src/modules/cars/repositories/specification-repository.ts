@@ -28,10 +28,23 @@ class SpecificationRepository implements ISpecificationRepository {
     return specification
   }
 
-  async findByIds(ids: string[]): Promise<Specification[]> {
-    // const specifications = await prisma.specification.findMany()
+  async addSpecificationToCar(
+    car_id: string,
+    specification_id: string,
+  ): Promise<Specification> {
+    const specification = await prisma.specification.update({
+      where: {
+        id: specification_id,
+      },
+      data: {
+        car_id,
+      },
+      include: {
+        car: true,
+      },
+    })
 
-    return specifications
+    return specification
   }
 }
 

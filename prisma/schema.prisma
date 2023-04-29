@@ -46,8 +46,8 @@ model Specification {
   description String
   created_at  DateTime @default(now())
 
-  car    Car    @relation(fields: [car_id], references: [id])
-  car_id String
+  car    Car?    @relation(fields: [car_id], references: [id])
+  car_id String?
 
   @@map("specifications")
 }

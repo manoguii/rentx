@@ -1,6 +1,7 @@
 import { ICreateCarDTO } from '@modules/cars/dtos/ICreateCarDTO'
-import { Car } from '@modules/cars/entities/Car'
+import { Car as CarEntity } from '@modules/cars/entities/Car'
 import { ICarsRepository } from '../interface/ICarsRepository'
+import { Specification, Car } from '@prisma/client'
 
 class CarsRepositoryInMemory implements ICarsRepository {
   cars: Car[] = []
@@ -14,7 +15,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
     license_plate,
     name,
   }: ICreateCarDTO): Promise<Car> {
-    const car = new Car()
+    const car = new CarEntity()
 
     Object.assign(car, {
       brand,
@@ -73,6 +74,24 @@ class CarsRepositoryInMemory implements ICarsRepository {
     const findIndex = this.cars.findIndex((car) => car.id === id)
 
     this.cars[findIndex].available = available
+  }
+
+  async createSpecifications(
+    car_id: string,
+    specifications: Specification[],
+  ): Promise<
+    Car & {
+      Specification: Specification[]
+    }
+  > {
+    const car = this.cars.find((car) => car.id === car_id)
+
+    const carUpdated = {
+      ...car,
+      Specification: specifications,
+    }
+
+    return carUpdated
   }
 }
 

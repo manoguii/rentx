@@ -1,6 +1,6 @@
 import { ICreateCarDTO } from '@modules/cars/dtos/ICreateCarDTO'
 
-import { Car } from '@prisma/client'
+import { Car, Specification } from '@prisma/client'
 import { ICarsRepository } from './interface/ICarsRepository'
 import { prisma } from '@lib/prisma'
 
@@ -101,6 +101,30 @@ class CarsRepository implements ICarsRepository {
     })
 
     return cars
+  }
+
+  async createSpecifications(
+    car_id: string,
+    specifications: Specification[],
+  ): Promise<Car> {
+    const car = await prisma.car.update({
+      where: {
+        id: car_id,
+      },
+      data: {
+        Specification: {
+          createMany: {
+            data: specifications,
+            skipDuplicates: true,
+          },
+        },
+      },
+      include: {
+        Specification: true,
+      },
+    })
+
+    return car
   }
 }
 
