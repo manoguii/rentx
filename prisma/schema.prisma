@@ -1,0 +1,110 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = "debian-openssl-3.0.x"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CarImage {
+  id         String   @id() @default(uuid())
+  image_name String
+  created_at DateTime @default(now())
+
+  car    Car    @relation(fields: [car_id], references: [id])
+  car_id String
+
+  @@map("car_image")
+}
+
+model Car {
+  id            String   @id() @default(uuid())
+  name          String
+  description   String
+  daily_rate    Int
+  available     Boolean  @default(true)
+  license_plate String   @unique
+  fine_amount   Int
+  brand         String
+  created_at    DateTime @default(now())
+
+  categories  Category @relation(fields: [category_id], references: [id])
+  category_id String
+
+  CarImage      CarImage[]
+  Rental        Rental[]
+  Specification Specification[]
+
+  @@map("cars")
+}
+
+model Specification {
+  id          String   @id() @default(uuid())
+  name        String   @unique
+  description String
+  created_at  DateTime @default(now())
+
+  car    Car    @relation(fields: [car_id], references: [id])
+  car_id String
+
+  @@map("specifications")
+}
+
+model Category {
+  id          String   @id() @default(uuid())
+  name        String   @unique
+  description String
+  created_at  DateTime @default(now())
+
+  Car Car[]
+
+  @@map("categories")
+}
+
+model Rental {
+  id                   String   @id() @default(uuid())
+  start_date           DateTime
+  end_date             DateTime
+  expected_return_date DateTime
+  total                Int
+  created_at           DateTime @default(now())
+  updated_at           DateTime @default(now())
+
+  car  Car  @relation(fields: [car_id], references: [id])
+  user User @relation(fields: [user_id], references: [id])
+
+  car_id  String
+  user_id String
+
+  @@map("rentals")
+}
+
+model User {
+  id             String   @id() @default(uuid())
+  name           String
+  password       String
+  email          String   @unique
+  driver_license String   @unique
+  isAdmin        Boolean  @default(false)
+  created_at     DateTime @default(now())
+  avatar         String?
+
+  Rental    Rental[]
+  UserToken UserToken[]
+
+  @@map("users")
+}
+
+model UserToken {
+  id            String   @id() @default(uuid())
+  refresh_token String   @unique
+  expires_date  DateTime
+  created_at    DateTime @default(now())
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  @@map("users_tokens")
+}

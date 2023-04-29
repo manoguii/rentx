@@ -1,34 +1,37 @@
-import { Specification } from "@modules/cars/infra/typeorm/entities/Specification";
-
-import {
-  ICreateSpecificationDTO,
-  ISpecificationRepository,
-} from "../ISpecificationRepository";
+import { Specification } from '@prisma/client'
+import { Specification as SpecificationEntity } from '@modules/cars/entities/Specification'
+import { ISpecificationRepository } from '../interface/ISpecificationRepository'
+import { ICreateSpecificationDTO } from '@modules/cars/dtos/ICreateSpecificationDTO'
 
 class SpecificationRepositoryInMemory implements ISpecificationRepository {
-  specifications: Specification[] = [];
+  specifications: Specification[] = []
 
-  async create({ name, description }: ICreateSpecificationDTO): Promise<Specification> {
-    const specification = new Specification();
+  async create({
+    name,
+    description,
+  }: ICreateSpecificationDTO): Promise<Specification> {
+    const specification = new SpecificationEntity()
 
-    Object.assign(specification, { name, description });
+    Object.assign(specification, { name, description })
 
-    this.specifications.push(specification);
+    this.specifications.push(specification)
 
-    return specification;
+    return specification
   }
 
   async findByName(name: string): Promise<Specification> {
-    return this.specifications.find((specification) => specification.name === name);
+    return this.specifications.find(
+      (specification) => specification.name === name,
+    )
   }
 
   async findByIds(ids: string[]): Promise<Specification[]> {
     const allSpecifications = this.specifications.filter((specification) =>
-      ids.includes(specification.id)
-    );
+      ids.includes(specification.id),
+    )
 
-    return allSpecifications;
+    return allSpecifications
   }
 }
 
-export { SpecificationRepositoryInMemory };
+export { SpecificationRepositoryInMemory }

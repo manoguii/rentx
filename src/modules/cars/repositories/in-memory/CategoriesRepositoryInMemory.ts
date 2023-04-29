@@ -1,29 +1,32 @@
-import { Category } from "@modules/cars/infra/typeorm/entities/Category";
-
-import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
+import { Category as CategoryEntity } from '@modules/cars/entities/Category'
+import { Category } from '@prisma/client'
+import { ICategoriesRepository } from '../interface/ICategoriesRepository'
+import { ICreateCategoryDTO } from '@modules/cars/dtos/ICreateCategoryDTO'
 
 class CategoriesRepositoryInMemory implements ICategoriesRepository {
-  categories: Category[] = [];
+  categories: Category[] = []
 
   async create({ name, description }: ICreateCategoryDTO): Promise<void> {
-    const category = new Category();
+    const category = new CategoryEntity()
 
-    Object.assign(category, { name, description });
+    Object.assign(category, { name, description })
 
-    this.categories.push(category);
+    this.categories.push(category)
   }
 
   async list(): Promise<Category[]> {
-    const all = await this.categories;
+    const all = this.categories
 
-    return all;
+    return all
   }
 
   async findByName(name: string): Promise<Category> {
-    const category = await this.categories.find((category) => category.name === name);
+    const category = await this.categories.find(
+      (category) => category.name === name,
+    )
 
-    return category;
+    return category
   }
 }
 
-export { CategoriesRepositoryInMemory };
+export { CategoriesRepositoryInMemory }
