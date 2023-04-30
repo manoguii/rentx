@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidV4 } from 'uuid'
 
 class Specification {
   id: string
@@ -8,9 +8,7 @@ class Specification {
   car_id: string | null
 
   constructor() {
-    if (!this.id) {
-      this.id = uuidv4()
-    }
+    this.id = uuidV4()
   }
 }
 

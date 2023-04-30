@@ -64,13 +64,13 @@ model Category {
 }
 
 model Rental {
-  id                   String   @id() @default(uuid())
-  start_date           DateTime
-  end_date             DateTime
+  id                   String    @id() @default(uuid())
+  start_date           DateTime  @default(now())
+  end_date             DateTime?
   expected_return_date DateTime
-  total                Int
-  created_at           DateTime @default(now())
-  updated_at           DateTime @default(now())
+  total                Int?
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @default(now())
 
   car  Car  @relation(fields: [car_id], references: [id])
   user User @relation(fields: [user_id], references: [id])

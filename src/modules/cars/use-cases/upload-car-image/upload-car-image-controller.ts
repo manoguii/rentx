@@ -11,7 +11,7 @@ class UploadCarImagesController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
 
-    const images = request.files as unknown as IFiles[]
+    const images = request.files as IFiles[]
 
     const uploadCarImageUseCase = container.resolve(UploadCarImagesUseCase)
 

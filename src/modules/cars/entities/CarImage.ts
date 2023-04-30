@@ -7,9 +7,7 @@ class CarImage {
   created_at: string
 
   constructor() {
-    if (!this.id) {
-      this.id = uuidV4()
-    }
+    this.id = uuidV4()
   }
 }
 

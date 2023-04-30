@@ -76,7 +76,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
     this.cars[findIndex].available = available
   }
 
-  async createSpecifications(
+  async updateSpecifications(
     car_id: string,
     specifications: Specification[],
   ): Promise<

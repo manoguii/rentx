@@ -11,7 +11,7 @@ interface ICarsRepository {
   ): Promise<Car[]>
   findById(id: string): Promise<Car>
   updateAvailable(id: string, available: boolean): Promise<void>
-  createSpecifications(
+  updateSpecifications(
     car_id: string,
     specifications: Specification[],
   ): Promise<

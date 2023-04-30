@@ -4,19 +4,44 @@ import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/Car
 import { SpecificationRepositoryInMemory } from '@modules/cars/repositories/in-memory/SpecificationRepositoryInMemory'
 
 import { CreateCarSpecificationUseCase } from './create-car-specification-use-case'
+import { Car, Specification } from '@prisma/client'
 
 let createCarSpecificationUseCase: CreateCarSpecificationUseCase
 let carsRepositoryInMemory: CarsRepositoryInMemory
 let specificationsRepositoryInMemory: SpecificationRepositoryInMemory
 
+let carBMW: Car
+let specification_motor: Specification
+let specification_acceleration: Specification
+
 describe('Create Car Specification', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     carsRepositoryInMemory = new CarsRepositoryInMemory()
     specificationsRepositoryInMemory = new SpecificationRepositoryInMemory()
     createCarSpecificationUseCase = new CreateCarSpecificationUseCase(
       carsRepositoryInMemory,
       specificationsRepositoryInMemory,
     )
+
+    carBMW = await carsRepositoryInMemory.create({
+      name: 'X1 (E84)',
+      description: 'LCI xDrive20i 2012',
+      daily_rate: 420,
+      license_plate: 'BGD-854',
+      fine_amount: 710,
+      brand: 'BMW',
+      category_id: 'test-category-id',
+    })
+
+    specification_motor = await specificationsRepositoryInMemory.create({
+      name: 'Motor',
+      description: 'Potência: 184 PS or 181 bhp or 135 kW @ 5000-6250 rpm',
+    })
+
+    specification_acceleration = await specificationsRepositoryInMemory.create({
+      name: 'Aceleração',
+      description: 'Velocidade Máxima	215 km/h',
+    })
   })
 
   it('should not be able to add a new specification to a now-existent car', async () => {
@@ -30,28 +55,16 @@ describe('Create Car Specification', () => {
   })
 
   it('should be able to add a new specification to the car', async () => {
-    const car = await carsRepositoryInMemory.create({
-      name: 'Car 1',
-      description: 'test-car-description',
-      daily_rate: 100,
-      license_plate: 'ABC-123',
-      fine_amount: 100,
-      brand: 'test-brand',
-      category_id: 'test-category-id',
-    })
-
-    const specification = await specificationsRepositoryInMemory.create({
-      name: 'Motor',
-      description: '4059 cavalos',
-    })
-
     const carSpecification = await createCarSpecificationUseCase.execute({
-      car_id: car.id,
-      specifications_id: [specification.id],
+      car_id: carBMW.id,
+      specifications_id: [
+        specification_motor.id,
+        specification_acceleration.id,
+      ],
     })
 
     expect(carSpecification).toHaveProperty('Specification')
-    expect(carSpecification.Specification.length).toBe(1)
-    expect(carSpecification.Specification[0]).toContain(specification)
+    expect(carSpecification.Specification.length).toBe(2)
+    expect(carSpecification.Specification[0]).toContain(specification_motor)
   })
 })

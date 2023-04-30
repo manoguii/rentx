@@ -1,9 +1,12 @@
-# create car
-# create user
-# create category
-# create specification
-# create session
-# list categories
+refactors
+[x] - create car
+[x] - create user
+[x] - create category
+[x] - create specification
+[x] - create session
+[x] - list categories
+[x] - upload categories
+[x] - upload car images
 
 --
 

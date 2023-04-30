@@ -103,10 +103,14 @@ class CarsRepository implements ICarsRepository {
     return cars
   }
 
-  async createSpecifications(
+  async updateSpecifications(
     car_id: string,
     specifications: Specification[],
-  ): Promise<Car> {
+  ): Promise<
+    Car & {
+      Specification: Specification[]
+    }
+  > {
     const car = await prisma.car.update({
       where: {
         id: car_id,

@@ -44,7 +44,7 @@ class CreateCarSpecificationUseCase {
       specifications.push(specification)
     })
 
-    const carUpdated = await this.carsRepository.createSpecifications(
+    const carUpdated = await this.carsRepository.updateSpecifications(
       carExists.id,
       specifications,
     )
