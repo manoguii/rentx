@@ -1,4 +1,4 @@
-import { v4 as uuidV4 } from 'uuid'
+import { randomUUID } from 'node:crypto'
 
 import { User } from '@prisma/client'
 
@@ -11,7 +11,7 @@ class UserToken {
   created_at: Date
 
   constructor() {
-    this.id = uuidV4()
+    this.id = randomUUID()
   }
 }
 

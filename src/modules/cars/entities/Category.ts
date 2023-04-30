@@ -1,4 +1,4 @@
-import { v4 as uuidV4 } from 'uuid'
+import { randomUUID } from 'node:crypto'
 
 class Category {
   id: string
@@ -7,7 +7,7 @@ class Category {
   created_at: Date
 
   constructor() {
-    this.id = uuidV4()
+    this.id = randomUUID()
   }
 }
 

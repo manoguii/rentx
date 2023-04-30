@@ -1,4 +1,4 @@
-import { v4 as uuidV4 } from 'uuid'
+import { randomUUID } from 'node:crypto'
 
 import { Car } from '@prisma/client'
 
@@ -15,7 +15,7 @@ class Rental {
   updated_at: Date
 
   constructor() {
-    this.id = uuidV4()
+    this.id = randomUUID()
   }
 }
 

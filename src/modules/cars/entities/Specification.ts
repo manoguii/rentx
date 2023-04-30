@@ -1,4 +1,4 @@
-import { v4 as uuidV4 } from 'uuid'
+import { randomUUID } from 'node:crypto'
 
 class Specification {
   id: string
@@ -8,7 +8,7 @@ class Specification {
   car_id: string | null
 
   constructor() {
-    this.id = uuidV4()
+    this.id = randomUUID()
   }
 }
 

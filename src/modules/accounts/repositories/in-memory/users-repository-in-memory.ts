@@ -31,6 +31,10 @@ class UsersRepositoryInMemory implements IUsersRepository {
   async findById(id: string): Promise<User> {
     return this.users.find((user) => user.id === id)
   }
+
+  async findByDriverLicense(driver_license: string): Promise<User> {
+    return this.users.find((user) => user.driver_license === driver_license)
+  }
 }
 
 export { UsersRepositoryInMemory }

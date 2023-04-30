@@ -3,10 +3,10 @@ import multer from 'multer'
 import uploadConfig from '@config/upload'
 import { ensureAdmin } from '../middleware/ensureAdmin'
 import { ensureAuthenticated } from '../middleware/ensureAuthenticated'
-import { CreateCarController } from '@modules/cars/use-cases/create-car/create-car-controller'
-import { ListAvailableCarsController } from '@modules/cars/use-cases/list-available-cars/list-available-cars-controller'
-import { CreateCarSpecificationController } from '@modules/cars/use-cases/create-car-specification/create-car-specification-controller'
-import { UploadCarImagesController } from '@modules/cars/use-cases/upload-car-images/upload-car-images-controller'
+import { CreateCarController } from '@modules/cars/controllers/create-car-controller'
+import { ListAvailableCarsController } from '@modules/cars/controllers/list-available-cars-controller'
+import { CreateCarSpecificationController } from '@modules/cars/controllers/create-car-specification-controller'
+import { UploadCarImagesController } from '@modules/cars/controllers/upload-car-images-controller'
 
 const carsRoutes = Router()
 
