@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import 'reflect-metadata'
 import { AppError } from '@errors/AppError'
-import { SpecificationRepositoryInMemory } from '@modules/cars/repositories/in-memory/SpecificationRepositoryInMemory'
 import { CreateSpecificationUseCase } from './create-specification-use-case'
+import { SpecificationRepositoryInMemory } from '@modules/cars/repositories/in-memory/specification-repository-in-memory'
 
 let createSpecificationUseCase: CreateSpecificationUseCase
 let specificationRepositoryInMemory: SpecificationRepositoryInMemory

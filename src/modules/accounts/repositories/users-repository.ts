@@ -10,7 +10,6 @@ class UsersRepository implements IUsersRepository {
     email,
     password,
     driver_license,
-    avatar,
   }: ICreateUserDTO): Promise<void> {
     await prisma.user.create({
       data: {
@@ -18,7 +17,6 @@ class UsersRepository implements IUsersRepository {
         email,
         password,
         driver_license,
-        avatar,
       },
     })
   }
@@ -37,6 +35,16 @@ class UsersRepository implements IUsersRepository {
     const user = await prisma.user.findUnique({
       where: {
         id,
+      },
+    })
+
+    return user
+  }
+
+  async findByDriverLicense(driver_license: string): Promise<User> {
+    const user = await prisma.user.findUnique({
+      where: {
+        driver_license,
       },
     })
 

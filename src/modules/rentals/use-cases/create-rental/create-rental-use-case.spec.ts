@@ -1,13 +1,11 @@
-import { beforeEach, describe, expect, it } from 'vitest'
 import 'reflect-metadata'
 import dayjs from 'dayjs'
-
+import { beforeEach, describe, expect, it } from 'vitest'
 import { AppError } from '@errors/AppError'
-import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'
-import { RentalsRepositoryInMemory } from '@modules/rentals/repositories/in-memory/RentalsRepositoryInMemory'
-
+import { RentalsRepositoryInMemory } from '@modules/rentals/repositories/in-memory/rentals-repository-in-memory'
 import { CreateRentalUseCase } from './create-rental-use-case'
 import { DayJsDateProvider } from '@providers/date-provider/implementations/day-js-date-provider'
+import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/cars-repository-in-memory'
 
 let createRentalUseCase: CreateRentalUseCase
 let rentalsRepositoryInMemory: RentalsRepositoryInMemory

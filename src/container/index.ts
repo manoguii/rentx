@@ -11,7 +11,7 @@ import { CarsRepository } from '@modules/cars/repositories/cars-repository'
 import { ICarImagesRepository } from '@modules/cars/repositories/interface/ICarImagesRepository'
 import { CarImagesRepository } from '@modules/cars/repositories/car-images-repository'
 import { IRentalsRepository } from '../modules/rentals/repositories/interface/IRentalsRepository'
-import { RentalsRepository } from '../modules/rentals/repositories/RentalsRepository'
+import { RentalsRepository } from '../modules/rentals/repositories/rentals-repository'
 import { UsersTokensRepository } from '@modules/accounts/repositories/users-tokens-repository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interface/IUsersTokensRepository'
 

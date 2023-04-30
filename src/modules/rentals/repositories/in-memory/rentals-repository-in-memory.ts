@@ -1,5 +1,6 @@
 import { ICreateRentalDTO } from '@modules/rentals/dtos/ICreateRentalDTO'
-import { Rental } from '@modules/rentals/entities/Rental'
+import { Rental as RentalEntity } from '@modules/rentals/entities/Rental'
+import { Rental } from '@prisma/client'
 
 import { IRentalsRepository } from '../interface/IRentalsRepository'
 
@@ -23,7 +24,7 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
     user_id,
     expected_return_date,
   }: ICreateRentalDTO): Promise<Rental> {
-    const rental = new Rental()
+    const rental = new RentalEntity()
 
     Object.assign(rental, {
       car_id,

@@ -30,7 +30,7 @@ class CreateRentalUseCase {
     user_id,
     expected_return_date,
   }: IRequest): Promise<Rental> {
-    const minimumHour = 24
+    const minimumTimeToRent = 24
 
     // Não deve ser possível cadastrar um novo aluguel caso já *** exista um aberto para o mesmo carro
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(
@@ -58,7 +58,7 @@ class CreateRentalUseCase {
       expected_return_date,
     )
 
-    if (compare < minimumHour) {
+    if (compare < minimumTimeToRent) {
       throw new AppError('Return date must be at least 24 hours')
     }
 

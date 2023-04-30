@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { AppError } from '@errors/AppError'
-import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'
-import { SpecificationRepositoryInMemory } from '@modules/cars/repositories/in-memory/SpecificationRepositoryInMemory'
 
 import { CreateCarSpecificationUseCase } from './create-car-specification-use-case'
 import { Car, Specification } from '@prisma/client'
+import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/cars-repository-in-memory'
+import { SpecificationRepositoryInMemory } from '@modules/cars/repositories/in-memory/specification-repository-in-memory'
 
 let createCarSpecificationUseCase: CreateCarSpecificationUseCase
 let carsRepositoryInMemory: CarsRepositoryInMemory

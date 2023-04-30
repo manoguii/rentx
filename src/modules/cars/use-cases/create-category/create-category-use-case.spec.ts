@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import 'reflect-metadata'
 import { AppError } from '@errors/AppError'
-import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory'
 
 import { CreateCategoryUseCase } from './create-category-use-case'
+import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/categories-repository-in-memory'
 
 let createCategoryUseCase: CreateCategoryUseCase
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory

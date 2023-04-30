@@ -15,9 +15,7 @@ class Rental {
   updated_at: Date
 
   constructor() {
-    if (!this.id) {
-      this.id = uuidV4()
-    }
+    this.id = uuidV4()
   }
 }
 

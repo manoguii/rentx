@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import 'reflect-metadata'
-import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'
 
 import { ListAvailableCarsUseCase } from './list-available-cars-use-case'
+import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/cars-repository-in-memory'
 
 let listAvailableCarsUseCase: ListAvailableCarsUseCase
 let carsRepositoryInMemory: CarsRepositoryInMemory

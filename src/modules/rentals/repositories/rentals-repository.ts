@@ -6,38 +6,53 @@ import { prisma } from '@lib/prisma'
 
 class RentalsRepository implements IRentalsRepository {
   async findOpenRentalByCar(car_id: string): Promise<Rental> {
-    const openByCar = await this.repository.findOne({
-      where: { car_id, end_date: null },
+    const openByCar = await prisma.rental.findMany({
+      where: {
+        AND: [
+          {
+            car_id,
+          },
+          {
+            end_date: {
+              equals: null,
+            },
+          },
+        ],
+      },
     })
 
-    return openByCar
+    return openByCar[0]
   }
 
   async findOpenRentalByUser(user_id: string): Promise<Rental> {
-    const openByUser = await this.repository.findOne({
-      where: { user_id, end_date: null },
+    const openByUser = await prisma.rental.findMany({
+      where: {
+        AND: [
+          {
+            user_id,
+          },
+          {
+            end_date: {
+              equals: null,
+            },
+          },
+        ],
+      },
     })
 
-    return openByUser
+    return openByUser[0]
   }
 
   async create({
     car_id,
     user_id,
     expected_return_date,
-    end_date,
-    id,
-    total,
   }: ICreateRentalDTO): Promise<Rental> {
     const rental = await prisma.rental.create({
       data: {
         car_id,
         user_id,
         expected_return_date,
-        end_date,
-        id,
-        total,
-        start_date: new Date(),
       },
     })
 

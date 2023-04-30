@@ -1,9 +1,9 @@
 import 'reflect-metadata'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { AppError } from '@errors/AppError'
-import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'
 
 import { CreateCarUseCase } from './create-car-use-case'
+import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/cars-repository-in-memory'
 
 let createCarUseCase: CreateCarUseCase
 let carsRepositoryInMemory: CarsRepositoryInMemory

@@ -24,6 +24,15 @@ class UserUseCase {
       throw new AppError('User already exists')
     }
 
+    const driverLicenseIsAlreadyRegistered =
+      await this.userRepository.findByDriverLicense(driver_license)
+
+    if (driverLicenseIsAlreadyRegistered) {
+      throw new AppError(
+        'The drivers license is already registered by another user !',
+      )
+    }
+
     const passwordHash = await hash(password, 8)
 
     await this.userRepository.create({

@@ -2,12 +2,12 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import 'reflect-metadata'
 import { AppError } from '@errors/AppError'
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
-import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
-import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory'
 
 import { UserUseCase } from '../create-user/create-user-use-case'
 import { AuthenticateUserUseCase } from './authenticate-user-use-case'
 import { DayJsDateProvider } from '@providers/date-provider/implementations/day-js-date-provider'
+import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/users-repository-in-memory'
+import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/users-tokens-repository-in-memory'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory
 let authenticateUserUseCase: AuthenticateUserUseCase

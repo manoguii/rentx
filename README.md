@@ -58,7 +58,7 @@ refactors
 - [x] O usuário responsável pelo cadastro deve ser um usuário *** administrador.
 
 
-# Alugel de carro
+# Aluguel de carro
 
 **RF**
 - [x] Deve ser possível cadastrar um aluguel
