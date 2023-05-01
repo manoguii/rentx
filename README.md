@@ -1,15 +1,3 @@
-refactors
-[x] - create car
-[x] - create user
-[x] - create category
-[x] - create specification
-[x] - create session
-[x] - list categories
-[x] - upload categories
-[x] - upload car images
-
---
-
 # Cadastro de carro
 
 **RF**
