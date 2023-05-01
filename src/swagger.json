@@ -3,7 +3,7 @@
   "info": {
     "title": "RentX Documentation",
     "description": "This is API Rent",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "contact": {
       "email": "guilhermedavidrk@gmail.com"
     }
@@ -11,7 +11,9 @@
   "paths": {
     "/categories": {
       "post": {
-        "tags": ["category"],
+        "tags": [
+          "category"
+        ],
         "summary": "Create a category",
         "description": "Create a new category",
         "security": [
@@ -50,7 +52,9 @@
         }
       },
       "get": {
-        "tags": ["category"],
+        "tags": [
+          "category"
+        ],
         "summary": "List all categories",
         "description": "List all categories",
         "responses": {
@@ -80,9 +84,16 @@
     },
     "/category/import": {
       "post": {
-        "tags": ["category"],
+        "tags": [
+          "category"
+        ],
         "summary": "Upload new category",
-        "description" : "Upload a new category",
+        "description": "Upload a new category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -107,9 +118,16 @@
     },
     "/specifications": {
       "post": {
-        "tags": ["Specifications"],
+        "tags": [
+          "Specifications"
+        ],
         "summary": "Create a specification",
         "description": "Create a new specification",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -131,19 +149,21 @@
     },
     "/sessions": {
       "post": {
-        "tags": ["session"],
-        "summary":"Authentication user",
-        "description":"Authentication",
+        "tags": [
+          "session"
+        ],
+        "summary": "Authentication user",
+        "description": "Authentication",
         "requestBody": {
-          "content":{
-            "application/json":{
-              "schema":{
+          "content": {
+            "application/json": {
+              "schema": {
                 "type": "object",
-                "properties":{
-                  "email":{
+                "properties": {
+                  "email": {
                     "type": "string"
                   },
-                  "password":{
+                  "password": {
                     "type": "string"
                   }
                 }
@@ -162,41 +182,103 @@
       }
     },
     "/cars": {
-      "post":{
-        "tags":["cars"],
-        "summary":"Create a new car",
-        "description":"Create car",
+      "post": {
+        "tags": [
+          "cars"
+        ],
+        "summary": "Create a new car",
+        "description": "Create car",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "requestBody":{
+        "requestBody": {
           "content": {
-            "application/json":{
-              "schema":{
-                "$ref":"#/definitions/Car"
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Car"
               }
             }
           }
         },
-        "responses":{
-          "201":{
-            "description":"Created"
+        "responses": {
+          "201": {
+            "description": "Created"
           },
-          "400":{
-            "description":"Car already exists"
+          "400": {
+            "description": "Car already exists"
+          }
+        }
+      }
+    },
+    "/cars/available": {
+      "get": {
+        "tags": [
+          "cars"
+        ],
+        "summary": "List all available cars",
+        "description": "List all available cars",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "daily_rate": {
+                        "type": "number"
+                      },
+                      "available": {
+                        "type": "boolean"
+                      },
+                      "license_plate": {
+                        "type": "string"
+                      },
+                      "fine_amount": {
+                        "type": "number"
+                      },
+                      "brand": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "category_id": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/cars/images/{id}": {
       "post": {
-        "tags":["cars"],
+        "tags": [
+          "cars"
+        ],
         "summary": "Upload images",
-        "description":"Upload images",
-        "security":[
-          {"bearerAuth": []}
+        "description": "Upload images",
+        "security": [
+          {
+            "bearerAuth": []
+          }
         ],
         "parameters": [
           {
@@ -204,22 +286,22 @@
             "in": "path",
             "description": "car id",
             "required": true,
-            "schema":{
-              "type":"string"
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "requestBody":{
-          "content":{
-            "multipart/form-data":{
-              "schema":{
-                "type":"object",
-                "properties":{
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
                   "images": {
-                    "type":"array",
-                    "items":{
-                      "type":"string",
-                      "format":"binary"
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
                     }
                   }
                 }
@@ -227,9 +309,9 @@
             }
           }
         },
-        "responses":{
-          "201":{
-            "description":"Created"
+        "responses": {
+          "201": {
+            "description": "Created"
           }
         }
       }
@@ -265,14 +347,18 @@
         "fine_amount": {
           "type": "number"
         },
-        "brand": {"type": "string"},
-        "category_id": {"type": "string"}
+        "brand": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "string"
+        }
       }
     }
   },
   "components": {
     "securitySchemes": {
-      "bearerAuth" : {
+      "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"

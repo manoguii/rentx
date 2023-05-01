@@ -35,7 +35,7 @@ class EtherealMailProvider implements IMailProvider {
     subject: string,
     variables: any,
     path: string,
-  ): Promise<void> {
+  ): Promise<string | false> {
     const templateFileContent = fs.readFileSync(path).toString('utf8')
 
     const templateParse = handlebars.compile(templateFileContent)
@@ -49,8 +49,9 @@ class EtherealMailProvider implements IMailProvider {
       html: templateHTML,
     })
 
-    console.log('Message sent: %s', message.messageId)
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message))
+    const link = nodemailer.getTestMessageUrl(message)
+
+    return link
   }
 }
 

@@ -1,8 +1,7 @@
-import dayjs from 'dayjs'
-import { resolve } from 'path'
+import 'dotenv'
+import { resolve } from 'node:path'
 import { inject, injectable } from 'tsyringe'
 import { randomUUID } from 'node:crypto'
-
 import { AppError } from '@errors/AppError'
 import { IUsersRepository } from '@modules/accounts/repositories/interface/IUsersRepository'
 import { IDateProvider } from '@providers/date-provider/IDateProvider'
@@ -31,10 +30,9 @@ class SendForgotPasswordMailUseCase {
     const templatePath = resolve(
       __dirname,
       '..',
-      '..',
       'views',
       'emails',
-      'ForgotPassword.hbs',
+      'forgot-password-template.hbs',
     )
 
     if (!user) {
@@ -43,7 +41,9 @@ class SendForgotPasswordMailUseCase {
 
     const token = randomUUID()
 
-    const expires_date = dayjs().add(3, 'hours').toDate()
+    const emailDurationTime = 3
+
+    const expires_date = this.dateProvider.addHours(emailDurationTime)
 
     await this.usersTokensRepository.create({
       refresh_token: token,
@@ -56,12 +56,20 @@ class SendForgotPasswordMailUseCase {
       link: `${process.env.FORGOT_EMAIL_URL}${token}`,
     }
 
-    await this.mailProvider.sendEmail(
+    const recoveryLink = await this.mailProvider.sendEmail(
       email,
-      'Recuperarção de senha',
+      'Recuperação de senha',
       variables,
       templatePath,
     )
+
+    if (!recoveryLink) {
+      throw new AppError(
+        'Unable to generate password recovery link, please try again later!',
+      )
+    }
+
+    return recoveryLink
   }
 }
 

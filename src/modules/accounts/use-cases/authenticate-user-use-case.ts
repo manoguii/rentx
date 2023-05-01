@@ -35,8 +35,6 @@ class AuthenticateUserUseCase {
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
-    // Usuario existe
-
     const user = await this.usersRepository.findByEmail(email)
 
     const {
@@ -51,14 +49,12 @@ class AuthenticateUserUseCase {
       throw new AppError('Email or password incorrect')
     }
 
-    // Senha está correta
     const passwordMatch = await compare(password, user.password)
 
     if (!passwordMatch) {
       throw new AppError('Email or password incorrect')
     }
 
-    // Gerar JWT
     const token = sign({}, secret_token, {
       subject: user.id,
       expiresIn: expires_in_token,
@@ -72,6 +68,8 @@ class AuthenticateUserUseCase {
     const refresh_token_expires_date = this.dateProvider.addDays(
       expires_refresh_token_days,
     )
+
+    await this.usersTokensRepository.deleteAllRefreshTokensFromUser(user.id)
 
     await this.usersTokensRepository.create({
       user_id: user.id,

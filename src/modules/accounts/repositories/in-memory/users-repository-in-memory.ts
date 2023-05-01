@@ -35,6 +35,27 @@ class UsersRepositoryInMemory implements IUsersRepository {
   async findByDriverLicense(driver_license: string): Promise<User> {
     return this.users.find((user) => user.driver_license === driver_license)
   }
+
+  async updatePassword(user_id: string, password: string): Promise<User> {
+    let userWithUpdatedPassword: User
+
+    this.users.map((user) => {
+      if (user.id === user_id) {
+        const userUpdated = {
+          ...user,
+          password,
+        }
+
+        userWithUpdatedPassword = userUpdated
+
+        return userUpdated
+      } else {
+        return user
+      }
+    })
+
+    return userWithUpdatedPassword
+  }
 }
 
 export { UsersRepositoryInMemory }

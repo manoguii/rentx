@@ -4,7 +4,7 @@ interface IMailProvider {
     subject: string,
     variable: any,
     path: string,
-  ): Promise<void>
+  ): Promise<string | false>
 }
 
 export { IMailProvider }

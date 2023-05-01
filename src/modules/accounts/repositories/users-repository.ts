@@ -50,6 +50,19 @@ class UsersRepository implements IUsersRepository {
 
     return user
   }
+
+  async updatePassword(user_id: string, password: string): Promise<User> {
+    const userWithUpdatedPassword = await prisma.user.update({
+      where: {
+        id: user_id,
+      },
+      data: {
+        password,
+      },
+    })
+
+    return userWithUpdatedPassword
+  }
 }
 
 export { UsersRepository }

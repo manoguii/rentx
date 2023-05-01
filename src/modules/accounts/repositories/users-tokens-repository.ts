@@ -24,20 +24,34 @@ class UsersTokensRepository implements IUsersTokensRepository {
     user_id: string,
     refresh_token: string,
   ): Promise<UserToken> {
-    const usersTokens = await prisma.userToken.findUnique({
+    const usersTokens = await prisma.userToken.findMany({
       where: {
-        refresh_token,
-        user_id,
+        AND: [
+          {
+            user_id,
+          },
+          {
+            refresh_token,
+          },
+        ],
       },
     })
 
-    return usersTokens
+    return usersTokens[0]
   }
 
   async deleteById(id: string): Promise<void> {
     await prisma.userToken.delete({
       where: {
         id,
+      },
+    })
+  }
+
+  async deleteAllRefreshTokensFromUser(user_id: string): Promise<void> {
+    await prisma.userToken.deleteMany({
+      where: {
+        user_id,
       },
     })
   }

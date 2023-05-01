@@ -11,9 +11,9 @@ class SendForgotPasswordMailController {
       SendForgotPasswordMailUseCase,
     )
 
-    await sendForgotPasswordMailUseCase.execute(email)
+    const recovery_link = await sendForgotPasswordMailUseCase.execute(email)
 
-    return response.send()
+    return response.status(200).json({ recovery_link })
   }
 }
 

@@ -45,6 +45,10 @@ class UsersTokensRepositoryInMemory implements IUsersTokensRepository {
     this.usersTokens.splice(this.usersTokens.indexOf(userToken))
   }
 
+  async deleteAllRefreshTokensFromUser(user_id: string): Promise<void> {
+    this.usersTokens.filter((userToken) => userToken.user_id !== user_id)
+  }
+
   async findByRefreshToken(refresh_token: string): Promise<UserToken> {
     const userTokens = this.usersTokens.find(
       (userToken) => userToken.refresh_token === refresh_token,
