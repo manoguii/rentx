@@ -45,6 +45,7 @@ describe('Authenticate User', () => {
     })
 
     expect(result).toHaveProperty('token')
+    expect(result).toHaveProperty('refresh_token')
   })
 
   it('should not be able to authenticate an nonexistent user', async () => {
@@ -56,7 +57,7 @@ describe('Authenticate User', () => {
     ).rejects.toEqual(new AppError('Email or password incorrect'))
   })
 
-  it('should not be able to authenticate wifh incorrect password', async () => {
+  it('should not be able to authenticate with incorrect password', async () => {
     const user: ICreateUserDTO = {
       driver_license: 'ABC123',
       email: 'email@email.com',
