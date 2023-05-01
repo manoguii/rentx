@@ -1,3 +1,15 @@
+refactors
+[x] - create car
+[x] - create user
+[x] - create category
+[x] - create specification
+[x] - create session
+[x] - list categories
+[x] - upload categories
+[x] - upload car images
+
+--
+
 # Cadastro de carro
 
 **RF**
@@ -46,7 +58,7 @@
 - [x] O usuário responsável pelo cadastro deve ser um usuário *** administrador.
 
 
-# Alugel de carro
+# Aluguel de carro
 
 **RF**
 - [x] Deve ser possível cadastrar um aluguel

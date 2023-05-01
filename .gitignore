@@ -1,9 +1,5 @@
-tmp/*
-coverage
 node_modules
 .vscode
 .env
-yarn-error.log
-!tmp/.gitkeep
-dist/
-ormconfig.json
+coverage
+build

@@ -1,38 +1,11 @@
-version: '3.7'
+version: '3'
 
 services:
   database:
-    image: postgres
-    container_name: database_rentx
-    restart: always
+    image: bitnami/postgresql:latest
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=ignite
-      - POSTGRES_DB=rentx
-    volumes:
-      - pgdata:/data/postgres
-
-  redis:
-    image: redis:alpine
-    ports:
-      - 6379:6379
-
-  # app:
-  #   build: .
-  #   container_name: rentx
-  #   ports:
-  #     - 3333:3333
-  #     - 9229:9229
-  #   volumes:
-  #     - .:/usr/app
-  #   links:
-  #     - database
-  #   depends_on:
-  #     - database
-
-
-volumes:
-  pgdata:
-    driver: local
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=rent-x
