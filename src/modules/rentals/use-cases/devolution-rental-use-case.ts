@@ -7,8 +7,7 @@ import { ICarsRepository } from '@modules/cars/repositories/interface/ICarsRepos
 import { IDateProvider } from '@providers/date-provider/IDateProvider'
 
 interface IRequest {
-  id: string
-  user_id: string
+  rental_id: string
 }
 
 @injectable()
@@ -24,18 +23,19 @@ class DevolutionRentalUseCase {
     private carsRepository: ICarsRepository,
   ) {}
 
-  async execute({ id, user_id }: IRequest): Promise<Rental> {
-    const rental = await this.rentalsRepository.findById(id)
+  async execute({ rental_id }: IRequest): Promise<Rental> {
+    const rental = await this.rentalsRepository.findById(rental_id)
 
     const car = await this.carsRepository.findById(rental.car_id)
 
-    const minimum_daily = 1
-
     if (!rental) {
-      throw new AppError('Rental does not exists')
+      throw new AppError('Rental does not exists !')
     }
 
-    // verificar tempo de aluguel
+    // -> calcula valor total do aluguel incluindo a diária e multa de atraso(caso a data da devolução tiver passado da data determinada em expected_return_date), e atualiza o objeto rental.
+
+    const minimum_daily = 1
+
     const dateNow = this.dateProvider.dateNow()
 
     let daily = this.dateProvider.compareInDays(rental.start_date, dateNow)
@@ -58,15 +58,15 @@ class DevolutionRentalUseCase {
 
     total += daily * car.daily_rate
 
-    rental.end_date = dateNow
-
-    rental.total = total
-
-    await this.rentalsRepository.create(rental)
+    const updatedRent = await this.rentalsRepository.devolutionRental({
+      rental_id,
+      end_date: dateNow,
+      total_rental: total,
+    })
 
     await this.carsRepository.updateAvailable(car.id, true)
 
-    return rental
+    return updatedRent
   }
 }
 

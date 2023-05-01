@@ -1,8 +1,10 @@
 import { ICreateRentalDTO } from '@modules/rentals/dtos/ICreateRentalDTO'
 import { Rental as RentalEntity } from '@modules/rentals/entities/Rental'
 import { Rental } from '@prisma/client'
-
-import { IRentalsRepository } from '../interface/IRentalsRepository'
+import {
+  DevolutionRentalType,
+  IRentalsRepository,
+} from '../interface/IRentalsRepository'
 
 class RentalsRepositoryInMemory implements IRentalsRepository {
   rentals: Rental[] = []
@@ -44,6 +46,32 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
 
   async findByUser(user_id: string): Promise<Rental[]> {
     return this.rentals.filter((rental) => rental.user_id === user_id)
+  }
+
+  async devolutionRental({
+    end_date,
+    rental_id,
+    total_rental,
+  }: DevolutionRentalType): Promise<Rental> {
+    let updatedRent: Rental
+
+    this.rentals.map((rental) => {
+      if (rental.id === rental_id) {
+        const newRent = {
+          ...rental,
+          end_date,
+          total: total_rental,
+        }
+
+        updatedRent = newRent
+
+        return newRent
+      } else {
+        return rental
+      }
+    })
+
+    return updatedRent
   }
 }
 

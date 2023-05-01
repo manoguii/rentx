@@ -1,6 +1,12 @@
 import { ICreateRentalDTO } from '../../dtos/ICreateRentalDTO'
 import { Rental } from '@prisma/client'
 
+export type DevolutionRentalType = {
+  end_date: Date
+  total_rental: number
+  rental_id: string
+}
+
 interface IRentalsRepository {
   create({
     car_id,
@@ -11,6 +17,11 @@ interface IRentalsRepository {
   findOpenRentalByUser(user_id: string): Promise<Rental>
   findById(id: string): Promise<Rental>
   findByUser(user_id: string): Promise<Rental[]>
+  devolutionRental({
+    end_date,
+    rental_id,
+    total_rental,
+  }: DevolutionRentalType): Promise<Rental>
 }
 
 export { IRentalsRepository }

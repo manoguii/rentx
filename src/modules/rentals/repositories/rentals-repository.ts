@@ -1,7 +1,9 @@
 import { ICreateRentalDTO } from '@modules/rentals/dtos/ICreateRentalDTO'
-
 import { Rental } from '@prisma/client'
-import { IRentalsRepository } from './interface/IRentalsRepository'
+import {
+  DevolutionRentalType,
+  IRentalsRepository,
+} from './interface/IRentalsRepository'
 import { prisma } from '@lib/prisma'
 
 class RentalsRepository implements IRentalsRepository {
@@ -77,6 +79,24 @@ class RentalsRepository implements IRentalsRepository {
     })
 
     return rentals
+  }
+
+  async devolutionRental({
+    end_date,
+    rental_id,
+    total_rental,
+  }: DevolutionRentalType): Promise<Rental> {
+    const rental = await prisma.rental.update({
+      where: {
+        id: rental_id,
+      },
+      data: {
+        end_date,
+        total: total_rental,
+      },
+    })
+
+    return rental
   }
 }
 
